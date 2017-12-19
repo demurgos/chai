@@ -1,15 +1,16 @@
-declare namespace Chai {
+import _AssertionError = require("assertion-error");
 
+declare namespace chai {
     interface ChaiStatic {
         expect: ExpectStatic;
-        should(): Should;
+        should: Assertion & (() => Should);
         /**
          * Provides a way to extend the internals of Chai
          */
         use(fn: (chai: any, utils: any) => void): ChaiStatic;
         assert: AssertStatic;
         config: Config;
-        AssertionError: typeof AssertionError;
+        AssertionError: typeof _AssertionError;
         version: string;
     }
 
@@ -1496,21 +1497,15 @@ declare namespace Chai {
         truncateThreshold: number;
     }
 
-    export class AssertionError {
-        constructor(message: string, _props?: any, ssf?: Function);
-        name: string;
-        message: string;
-        showDiff: boolean;
-        stack: string;
+    export type AssertionError<T = {}> = _AssertionError<T>;
+}
+
+declare const chai: chai.ChaiStatic;
+
+export = chai;
+
+declare global {
+    interface Object {
+        should: chai.Assertion;
     }
-}
-
-declare const chai: Chai.ChaiStatic;
-
-declare module "chai" {
-    export = chai;
-}
-
-interface Object {
-    should: Chai.Assertion;
 }

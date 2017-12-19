@@ -1,15 +1,15 @@
-import * as chai from 'chai';
+import chai = require('chai');
 
 // ReSharper disable WrongExpressionStatement
 
-var expect = chai.expect;
-var assert = chai.assert;
-var should = chai.should();
+const expect = chai.expect;
+const assert = chai.assert;
+const should = chai.should();
 declare var err: Function;
 
 function chaiVersion() {
     expect(chai).to.have.property('version');
-    (<Object><{}>chai).should.have.property('version');
+    chai.should.have.property('version');
 }
 
 function assertion() {
@@ -1685,9 +1685,10 @@ suite('assert', () => {
             assert.include('foobar', 'baz');
         }, 'expected \'foobar\' to contain \'baz\'');
 
-        err(() => {
-            assert.include(undefined, 'bar');
-        }, 'expected an array or string');
+        // Commented out because Typescript is able to report this type error
+        // err(() => {
+        //     assert.include(undefined, 'bar');
+        // }, 'expected an array or string');
     });
 
     test('notInclude', () => {
@@ -1698,9 +1699,10 @@ suite('assert', () => {
             assert.notInclude('foobar', 'bar');
         }, 'expected \'foobar\' to not contain \'bar\'');
 
-        err(() => {
-            assert.notInclude(undefined, 'bar');
-        }, 'expected an array or string');
+      // Commented out because Typescript is able to report this type error
+      // err(() => {
+      //       assert.notInclude(undefined, 'bar');
+      //   }, 'expected an array or string');
     });
 
     test('lengthOf', () => {
