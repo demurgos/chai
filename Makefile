@@ -77,7 +77,7 @@ test-sauce: clean-browser chai.js
 		--single-run
 
 test-typescript:
-	@./node_modules/.bin/tsc test/typings/*.ts lib/chai.d.ts --noEmit
+	@./node_modules/.bin/tsc -p test/typings
 
 test-travisci:
 	@echo TRAVIS_JOB_ID $(TRAVIS_JOB_ID)
